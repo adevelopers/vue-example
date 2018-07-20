@@ -1,24 +1,32 @@
 {
-  "name": "VueExample",
+  "name": "webpack-app",
   "version": "1.0.0",
-  "description": "VueJS Example",
-  "main": "index.js",
+  "description": "",
+  "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/adevelopers/vue-example.git"
+    "start": "webpack-dashboard -- webpack-dev-server",
+    "prebuild": "rimraf dist",
+    "build": "webpack -p"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/adevelopers/vue-example/issues"
-  },
-  "homepage": "https://github.com/adevelopers/vue-example#readme",
+  "license": "",
   "devDependencies": {
-    "webpack": "^4.16.1",
-    "webpack-cli": "^3.1.0"
+    "babel-core": "6.17.0",
+    "babel-loader": "^6.2.5",
+    "babel-preset-es2015": "6.16.0",
+    "css-loader": "^0.25.0",
+    "file-loader": "0.9.0",
+    "html-loader": "0.4.4",
+    "html-webpack-plugin": "2.24.0",
+    "open-browser-webpack-plugin": "0.0.5",
+    "rimraf": "2.5.4",
+    "style-loader": "0.13.1",
+    "vue": "^2.5.16",
+    "vue-loader": "^15.2.6",
+    "vue-template-compiler": "^2.5.16",
+    "webpack": "^1.13.2",
+    "webpack-dashboard": "^2.0.0",
+    "webpack-dev-server": "^3.1.4"
   }
 }
