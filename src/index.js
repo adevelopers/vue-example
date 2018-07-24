@@ -1,4 +1,12 @@
 
+class TimerItem {
+
+    constructor(id, timer) {
+        this.id = id;
+        this.timer = timer;
+    }
+
+}
 Vue.component('label-item', {
     mounted() {
         this.$root.$on('welcome', this.accept);
