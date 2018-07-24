@@ -33,6 +33,16 @@ Vue.component('field-item', {
     '</div>'
 });
 
+Vue.component('timers-list', {
+    template: '<ul class="timers_list">' +
+    '   <li class="timers_list__item">timer...</li>' +
+    '</ul>' +
+    ''
+});
+
+Vue.component('timer-add', {
+    template: '<div class="timer_add"><button class="btn btn-primary">Add</button></div>'
+});
 
 
 var app = new Vue({

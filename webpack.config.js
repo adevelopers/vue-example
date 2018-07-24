@@ -23,7 +23,7 @@ module.exports = {
   },
   devServer: {
       historyApiFallback: true,
-      hot: true,
+      hot: false,
       inline: true,
       stats: 'errors-only',
       host: options.host,
@@ -58,9 +58,4 @@ module.exports = {
             'vue$': 'vue/dist/vue.esm.js'
         }
     },
-  plugins:[
-    new webpack.HotModuleReplacementPlugin({
-        multiStep: true
-    }),
-  ]
 };
