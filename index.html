@@ -3,19 +3,20 @@
         <title>
             title
         </title>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" >
+
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+        <link rel="stylesheet" href="css/index.css" >
         <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.js"></script>
+
     </head>
     <body>
         <div class="container">
             <div class="row">
-                <div  class="col-md-12 center" id="app">
+                <div  class="col-md-12 center" id="app" v-on:keydown="keydown">
                     <h3>{{ title }}</h3>
                     <timer-add></timer-add>
                     <timers-list></timers-list>
-                    <label-item></label-item>
-                    <field-item></field-item>
-                    <label-item></label-item>
                 </div>
             </div>
         </div>

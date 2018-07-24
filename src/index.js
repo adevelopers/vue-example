@@ -7,6 +7,7 @@ class TimerItem {
     }
 
 }
+
 Vue.component('label-item', {
     mounted() {
         this.$root.$on('welcome', this.accept);
@@ -42,20 +43,83 @@ Vue.component('field-item', {
 });
 
 Vue.component('timers-list', {
+    mounted(){
+        this.items = [];
+        this.$root.$on('addtimer', this.accept);
+    },
+    data() {
+      return { items:[] }
+    },
+    methods: {
+        accept: function(item) {
+            this.items.push(item);
+        },
+
+        removeTimer: function (item) {
+            const idx = this.items.indexOf(item);
+            this.items.splice(idx, 1);
+        }
+    },
     template: '<ul class="timers_list">' +
-    '   <li class="timers_list__item">timer...</li>' +
+    '   <li class="timers_list__item" v-for="item in items">{{item.timer}} ' +
+    '       <button class="btn" v-on:click="removeTimer(item)">' +
+    '           <i class="glyphicon glyphicon-remove"></i>' +
+    '       </button>' +
+    '   </li>' +
     '</ul>' +
     ''
 });
 
 Vue.component('timer-add', {
-    template: '<div class="timer_add"><button class="btn btn-primary">Add</button></div>'
-});
+    mounted(){
+        this.currentTimer = '08:00';
+        this.lastId = 1;
+    },
+    data() {
+        return { lastId: 0, currentTimer: '' }
+    },
+    methods: {
+        getNextId: function() {
+          this.lastId += 1;
+          return this.lastId;
+        },
+        onAdd: function() {
+            console.info("onAdd");
 
+            let item = new TimerItem(
+                this.getNextId(),
+                this.currentTimer
+            );
+
+            this.$root.$emit('addtimer', item );
+        },
+        onEnter: function(event) {
+            if (event.keyCode === 13) {
+                event.stopImmediatePropagation();
+                console.info("PRESS ENTER");
+                this.onAdd();
+                event.stopPropagation();
+            }
+        }
+    },
+    template: '<div class="timer_add">' +
+    '<input type="time" v-model="currentTimer" v-on:keydown="onEnter">' +
+    '<button :tabindex="3" class="btn btn-primary" v-on:click="onAdd">Add</button>' +
+    '</div>'
+});
 
 var app = new Vue({
     el: '#app',
     data: {
         title: 'Interaction between components'
-    }
+    },
+    methods: {
+      keydown: function (event) {
+          if (event.keyCode === 13) {
+              console.info("PRESS ENTER");
+              event.stopPropagation();
+              event.stopImmediatePropagation();
+          }
+      }  
+    },
 });
