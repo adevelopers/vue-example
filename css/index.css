@@ -1,0 +1,20 @@
+
+.timers_list {
+    border-left: 1px solid blue;
+    list-style: none;
+}
+
+.timers_list__item {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: 1px solid blue;
+    padding: 10px;
+}
+
+.timers_list__item button {
+    padding: 5px;
+}
+
+.timer_add {
+
+}
