@@ -8,6 +8,20 @@ class TimerItem {
 
 }
 
+class Utils {
+
+    /**
+     * 
+     * @param hms '02:04:33';
+     * @returns {number}
+     */
+    static time2seconds(hms) {
+
+        let itms = hms.split(':'); // split it at the colons
+        return ((+itms[0]) * 60 * 60 + (+itms[1]) * 60 + (+itms[2])) * 1000;
+    }
+
+}
 Vue.component('label-item', {
     mounted() {
         this.$root.$on('welcome', this.accept);
