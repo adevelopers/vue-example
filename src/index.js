@@ -22,6 +22,8 @@ class Utils {
     }
 
 }
+
+
 Vue.component('label-item', {
     mounted() {
         this.$root.$on('welcome', this.accept);
@@ -41,10 +43,9 @@ Vue.component('field-item', {
     created() {
 
     },
-    data: ()=> ({
+    data: () => ({
         message: ''
     }),
-
     methods: {
       send: function () {
           this.$root.$emit('welcome', { message: this.message});
@@ -54,6 +55,22 @@ Vue.component('field-item', {
     '<span>Message: </span><input type="text" v-model="message" v-on:input="send">' +
     '<button v-on:click="send" class="btn btn-primary">Add</button>' +
     '</div>'
+});
+
+Vue.component('timer-countdown', {
+    props: {
+        title: String
+    },
+    data() {
+        return { count: 0}
+    },
+    mounted() {
+        this.count = Utils.time2seconds("00:" + this.title) / 1000;
+        setInterval(() => {
+                this.count -= 1;
+            }, 1000);
+    },
+    template: '<i>{{this.title}}  [<b>{{this.count}}</b> sec.]</i>'
 });
 
 Vue.component('timers-list', {
@@ -67,15 +84,21 @@ Vue.component('timers-list', {
     methods: {
         accept: function(item) {
             this.items.push(item);
-        },
+            const seconds = Utils.time2seconds("00:" + item.timer);
+            let context = this;
 
+            setTimeout(()=>{
+                context.removeTimer(item);
+            }, seconds);
+        },
         removeTimer: function (item) {
             const idx = this.items.indexOf(item);
             this.items.splice(idx, 1);
         }
     },
     template: '<ul class="timers_list">' +
-    '   <li class="timers_list__item" v-for="item in items">{{item.timer}} ' +
+    '   <li class="timers_list__item" v-for="item in items">' +
+    '       <timer-countdown v-bind:title="item.timer"></timer-countdown> ' +
     '       <button class="btn" v-on:click="removeTimer(item)">' +
     '           <i class="glyphicon glyphicon-remove"></i>' +
     '       </button>' +
@@ -110,7 +133,6 @@ Vue.component('timer-add', {
         onEnter: function(event) {
             if (event.keyCode === 13) {
                 event.stopImmediatePropagation();
-                console.info("PRESS ENTER");
                 this.onAdd();
                 event.stopPropagation();
             }
