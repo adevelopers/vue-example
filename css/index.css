@@ -18,3 +18,19 @@
 .timer_add {
 
 }
+
+.removing {
+    animation-duration: 1s;
+    animation-name: slideLeft;
+}
+
+@keyframes slideLeft {
+    from {
+        opacity: 1.0;
+    }
+
+    to {
+        transform: translateX(-1024px);
+        opacity: 0;
+    }
+}
