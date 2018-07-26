@@ -40,6 +40,29 @@ Vue.component('timer-countdown', {
     template: '<i>{{this.title}}  [<b>{{this.count}}</b> sec.]</i>'
 });
 
+Vue.component('timer-item', {
+    props: ['item'],
+    data() {
+      return { isRemoving: false }
+    },
+    methods: {
+        removeTimer: function (item) {
+            console.log(this.$el);
+            $(this.$el).addClass("removing");
+            let context = this;
+            setTimeout(()=>{
+                context.$parent.removeTimer(item);
+            }, 500);
+        }
+    },
+    template: '   <li class="timers_list__item"  >' +
+    '       <timer-countdown v-bind:title="item.timer"></timer-countdown> ' +
+    '       <button class="btn" v-on:click="removeTimer(item)">' +
+    '           <i class="glyphicon glyphicon-remove"></i>' +
+    '       </button>' +
+    '   </li>'
+});
+
 Vue.component('timers-list', {
     mounted(){
         this.items = [];
@@ -55,6 +78,7 @@ Vue.component('timers-list', {
             let context = this;
 
             setTimeout(()=>{
+
                 context.removeTimer(item);
             }, seconds);
         },
@@ -63,13 +87,9 @@ Vue.component('timers-list', {
             this.items.splice(idx, 1);
         }
     },
-    template: '<ul class="timers_list">' +
-    '   <li class="timers_list__item" v-for="item in items">' +
-    '       <timer-countdown v-bind:title="item.timer"></timer-countdown> ' +
-    '       <button class="btn" v-on:click="removeTimer(item)">' +
-    '           <i class="glyphicon glyphicon-remove"></i>' +
-    '       </button>' +
-    '   </li>' +
+    template: '' +
+    '<ul class="timers_list">' +
+    '   <timer-item v-for="item in items" :key="item.id" v-bind:item="item" ></timer-item>' +
     '</ul>' +
     ''
 });
